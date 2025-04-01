@@ -2,6 +2,7 @@ import java.math.BigInteger;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Main{
     public static int cont = 0;
@@ -9,7 +10,8 @@ public class Main{
 
         long startTime = System.nanoTime();
         //int value = fiboRec(32);
-        BigInteger value = fiboDP(10000);
+        BigInteger[] valueArray = new BigInteger[1001];
+        BigInteger value = memoizedFibo(valueArray, 1000);
         long elapsedTime = System.nanoTime() - startTime;
 
         System.out.println("Counter: " + cont);
@@ -115,6 +117,40 @@ public class Main{
 //  então f [n] ← n
 //  senão f [n] ← LOOKUP-FIBO(f, n − 1) + LOOKUP-FIBO(f, n − 2)
 //  devolva f [n]
+
+//n = 4
+// Counter: 1
+// Time Elapsed: 399936
+// Fibonacci: 3
+
+//n = 8
+// Counter: 15
+// Time Elapsed: 473964
+// Fibonacci: 21
+
+//n = 16
+// Counter: 31
+// Time Elapsed: 711337
+// Fibonacci: 987
+
+//n = 32
+// Counter: 63
+// Time Elapsed: 914415
+// Fibonacci: 2178309
+
+//n = 128
+// Counter: 255
+// Time Elapsed: 6090276
+// Fibonacci: 251728825683549488150424261
+
+//n = 1000
+// Counter: 1999
+// Time Elapsed: 9890922
+// Fibonacci: 43466557686937456435688527675040625802564660517371780402481729089536555417949051890403879840079255169295922593080322634775209689623239873322471161642996440906533187938298969649928516003704476137795166849228875
+
+//n = 10000
+//a pilha estora e o programa retorna erro
+
     private static BigInteger memoizedFibo(BigInteger[] f, int n){
         for (int i = 0; i <= n; i++){
             f[i] = new BigInteger("-1");
@@ -123,6 +159,17 @@ public class Main{
     }
 
     private static BigInteger lookUpFibo(BigInteger[] f, int n){
-        
+        cont++;
+         if (f[n].compareTo(new BigInteger("-1")) > 0) {
+            return f[n];
+        }
+
+        if (n <= 1) {
+            f[n] = new BigInteger(String.valueOf(n));
+        } else {
+            f[n] = lookUpFibo(f, n - 1).add(lookUpFibo(f, n - 2));
+        }
+
+        return f[n];
     }
 }
