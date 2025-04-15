@@ -117,4 +117,5 @@ inteiro distEdProgDina(string A, String B)
 				    matriz[i-1][j-1] + custoExtra];
 	devolva matriz[m][n];
 ```
-8. Monte uma tabela com os resultados e número de iterações de ambas a implementações, para, pelo menos, os casos de testes disponíveis acima.
+8. Monte uma tabela com os resultados e número de iterações de ambas a implementações, para, pelo menos, os casos de testes disponíveis ac
+ima.
